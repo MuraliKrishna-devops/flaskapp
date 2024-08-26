@@ -1,0 +1,18 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+data_store = {}
+
+@app.route('/generate_data', methods=['POST'])
+def generate_data():
+    data = request.json
+    data_store.update(data)
+    return jsonify({"message": "Data stored"}), 200
+
+@app.route('/show_data', methods=['GET'])
+def show_data():
+    return jsonify(data_store), 200
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
